@@ -1,0 +1,1 @@
+Hello world! This is a test text file with ASCII encoding. We will be using it to test out our Huffman compression project, which utilizes Huffman coding to deflate the size of text-based files!
