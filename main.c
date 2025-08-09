@@ -1,6 +1,7 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include "huffman.h"
+#include "writer.h"
 
 int main(int argc, char **argv) {
 	if (argc != 3) {
@@ -25,11 +26,19 @@ int main(int argc, char **argv) {
 	ListNode * refinedCounts = refineCounts(counts, &numOfChars);
 	free(counts);
 
-	TreeNode * root = treeHelper(refinedCounts, numOfChars)->node;
-	printf("Root count of %d versus file length of %d\n", root->count, fileLength);
-	
-	freeList(refinedCounts);
+	// Convert from character count array to encoding tree
+	ListNode * root = treeHelper(refinedCounts, numOfChars);
+
+	// Write to output file
+	FILE * fptrOut = fopen(argv[2], "w");
+	writeTree(root->node, fptrOut);
+	fprintf(fptrOut, "0\n"); // trailing zero indicated end-of-tree
+	fprintf(fptrOut, "%d\n", fileLength); // error checking
+
+	freeTree(root->node);
+	free(root);
 	fclose(fptr);
+	fclose(fptrOut);
 
 	return EXIT_SUCCESS;
 }

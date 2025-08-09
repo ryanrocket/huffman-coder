@@ -112,6 +112,7 @@ ListNode * refineCounts(ListNode * listHead, int * total) {
 	ListNode * prevNode = refineHead;
 	ListNode * curNode = listHead;
 
+	// If a character has count zero, throw it out
 	while (curNode != NULL) {
 		if (curNode->node->count > 0) {
 			(*total)++;
@@ -146,7 +147,10 @@ void freeList(ListNode * listHead) {
 
 // Free a tree of character counts
 void freeTree(TreeNode * root) {
-
+	if (root == NULL) return;
+	freeTree(root->left);
+	freeTree(root->right);
+	free(root);
 }
 
 // Print a list of character counts
