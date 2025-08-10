@@ -47,6 +47,21 @@ void quicksort(ListNode * listHead, int first, int last) {
 	quicksort(listHead, high + 1, last);
 }
 
+// Build coding table from tree
+void makeCodeTable(TreeNode * root, Code table[128], unsigned int map, int depth) {
+	if (root == NULL) return;
+
+	// Assign a code to leaf nodes
+	if (!root->left && !root->right) {
+		table[(unsigned char) root->value].bits = map;
+		table[(unsigned char) root->value].length = depth;
+	} else {
+		// Traverse left with bit 0, right with bit 1
+		makeCodeTable(root->left, table, map << 1, depth + 1);
+		makeCodeTable(root->right, table, (map << 1) | 1, depth + 1);
+	}
+}
+
 // Recursive function to convert from counts list to binary tree
 ListNode * treeHelper(ListNode * listHead, int length) {
 	// Check for exit condition

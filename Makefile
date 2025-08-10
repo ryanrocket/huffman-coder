@@ -1,5 +1,5 @@
 CFLAGS = -std=c11 -fsanitize=address -g -Wall --pedantic -Wshadow -Wvla -Werror -Wunreachable-code
-OBJS = main.o huffman.o writer.o
+OBJS = main.o huffman.o coder.o
 APP = compress
 
 $(APP): $(OBJS)

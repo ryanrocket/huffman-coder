@@ -18,10 +18,16 @@ typedef struct _ListNode {
 	};
 } ListNode;
 
+typedef struct _Code {
+	unsigned int bits;
+	int length;
+} Code;
+
 TreeNode * createTreeNode(int count, char value);
 ListNode * getIndex(ListNode * listHead, int index);
 void swapNodes(ListNode * node1, ListNode * node2);
 void quicksort(ListNode * listHead, int first, int last);
+void makeCodeTable(TreeNode * root, Code table[128], unsigned int map, int depth);
 ListNode * treeHelper(ListNode * listHead, int length);
 ListNode * countChars(FILE * fptr, int * length);
 ListNode * refineCounts(ListNode * listHead, int * total);
