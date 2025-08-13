@@ -224,7 +224,7 @@ void decode(FILE * fInput, FILE * fOutput) {
 			}
 		}
 	}
-	fputc('\0', fOutput);
+	// fputc('\0', fOutput);
 
 	free(buffer);
 	freeTree(root);
