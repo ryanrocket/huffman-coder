@@ -208,6 +208,7 @@ void decode(FILE * fInput, FILE * fOutput) {
 	TreeNode * curNode = root;
 	int charValue = 0;
 	int position = 0;
+	int charCount = 0;
 	while ((charValue = fgetc(fInput)) != EOF) {
 		// charValue is one byte, process each bit
 		for (position = 0; position < 8; position++) {
@@ -215,7 +216,10 @@ void decode(FILE * fInput, FILE * fOutput) {
 			curNode = bit ? curNode->right : curNode->left;
 			if (curNode->left == NULL && curNode->right == NULL) {
 				// Reached a leaf node!
-				fputc(curNode->value, fOutput);
+				if (charCount < fileSize) {
+					fputc(curNode->value, fOutput);
+					charCount++;
+				}
 				curNode = root;
 			}
 		}
